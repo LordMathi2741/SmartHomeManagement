@@ -2,9 +2,8 @@ package com.smartHomeManagement.acme.inventory.domain.model.aggregates;
 
 
 import com.smartHomeManagement.acme.inventory.domain.model.commands.CreateDeviceCommand;
-import com.smartHomeManagement.acme.inventory.domain.model.entities.DeviceTypes;
+import com.smartHomeManagement.acme.shared.domain.model.entities.DeviceTypes;
 import com.smartHomeManagement.acme.inventory.domain.model.valueobjects.DeviceStatus;
-import com.smartHomeManagement.acme.inventory.domain.model.valueobjects.DeviceType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;

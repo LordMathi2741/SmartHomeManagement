@@ -1,7 +1,7 @@
 package com.smartHomeManagement.acme.inventory.infrastructure.persistence.jpa.repositories;
 
-import com.smartHomeManagement.acme.inventory.domain.model.entities.DeviceTypes;
-import com.smartHomeManagement.acme.inventory.domain.model.valueobjects.DeviceType;
+import com.smartHomeManagement.acme.shared.domain.model.entities.DeviceTypes;
+import com.smartHomeManagement.acme.shared.domain.model.valueobjects.DeviceType;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

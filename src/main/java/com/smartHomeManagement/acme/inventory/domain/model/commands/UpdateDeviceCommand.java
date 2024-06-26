@@ -1,7 +1,6 @@
 package com.smartHomeManagement.acme.inventory.domain.model.commands;
 
 import com.smartHomeManagement.acme.inventory.domain.model.valueobjects.DeviceStatus;
-import com.smartHomeManagement.acme.inventory.domain.model.valueobjects.DeviceType;
 
 /**
  * UpdateDeviceCommand

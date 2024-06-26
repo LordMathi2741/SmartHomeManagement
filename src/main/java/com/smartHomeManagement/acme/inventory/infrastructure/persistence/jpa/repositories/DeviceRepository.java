@@ -2,8 +2,12 @@ package com.smartHomeManagement.acme.inventory.infrastructure.persistence.jpa.re
 
 import com.smartHomeManagement.acme.inventory.domain.model.aggregates.Device;
 import com.smartHomeManagement.acme.inventory.domain.model.valueobjects.DeviceStatus;
-import com.smartHomeManagement.acme.inventory.domain.model.valueobjects.DeviceType;
+import com.smartHomeManagement.acme.shared.domain.model.valueobjects.DeviceType;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * DeviceRepository interface
@@ -20,4 +24,7 @@ public interface DeviceRepository extends JpaRepository<Device, Integer> {
 
     boolean existsByStatus(DeviceStatus status);
     boolean existsBySerialNumber(String serialNumber);
+
+    @Query("SELECT d FROM Device d WHERE d.deviceTypes = :deviceType")
+    ArrayList<Device> findDevicesByDeviceType(DeviceType deviceType);
 }

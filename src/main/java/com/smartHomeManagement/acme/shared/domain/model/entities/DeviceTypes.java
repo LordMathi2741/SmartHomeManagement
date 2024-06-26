@@ -1,6 +1,6 @@
-package com.smartHomeManagement.acme.inventory.domain.model.entities;
+package com.smartHomeManagement.acme.shared.domain.model.entities;
 
-import com.smartHomeManagement.acme.inventory.domain.model.valueobjects.DeviceType;
+import com.smartHomeManagement.acme.shared.domain.model.valueobjects.DeviceType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
