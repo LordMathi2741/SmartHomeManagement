@@ -17,4 +17,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface DeviceTypesRepository extends JpaRepository<DeviceTypes, Integer>{
     boolean existsByType(DeviceType type);
+    DeviceTypes findByType(DeviceType type);
 }

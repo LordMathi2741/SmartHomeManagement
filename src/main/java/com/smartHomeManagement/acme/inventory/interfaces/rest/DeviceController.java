@@ -8,6 +8,9 @@ import com.smartHomeManagement.acme.inventory.interfaces.rest.resources.UpdateDe
 import com.smartHomeManagement.acme.inventory.interfaces.rest.transform.CreateDeviceCommandFromResourceAssembler;
 import com.smartHomeManagement.acme.inventory.interfaces.rest.transform.DeviceResourceFromEntityAssembler;
 import com.smartHomeManagement.acme.inventory.interfaces.rest.transform.UpdateDeviceCommandFromResourceAssembler;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +27,12 @@ import org.springframework.web.bind.annotation.*;
  * @version 1.0
  */
 @RestController
+@Tag(name = "Device Controller", description = "Endpoints for managing devices")
+@ApiResponses(value = {
+        @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "500", description = "An error occurred with the server"),
+        @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "Bad request, you are missing some parameters"),
+})
+
 @RequestMapping(value = "api/v1/devices", produces = MediaType.APPLICATION_JSON_VALUE)
 public class DeviceController {
 
@@ -32,8 +41,11 @@ public class DeviceController {
     public DeviceController(DeviceCommandService deviceCommandService) {
         this.deviceCommandService = deviceCommandService;
     }
-
     @PostMapping
+    @Operation(summary = "Create a device")
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "201", description = "Device created"),
+    })
     public ResponseEntity<DeviceResource> createDevice(CreateDeviceResource createDeviceResource){
         var command = CreateDeviceCommandFromResourceAssembler.toCommandFromResource(createDeviceResource);
         var device = deviceCommandService.handle(command);
@@ -42,6 +54,10 @@ public class DeviceController {
     }
 
     @PutMapping("/{deviceId}")
+    @Operation(summary = "Update a device")
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Device updated"),
+    })
     public ResponseEntity<DeviceResource> updateDevice(@PathVariable int deviceId, UpdateDeviceResource updateDeviceResource){
         var command = UpdateDeviceCommandFromResourceAssembler.toCommandFromResource(deviceId, updateDeviceResource);
         var device = deviceCommandService.handle(command);

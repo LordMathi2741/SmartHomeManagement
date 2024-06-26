@@ -7,6 +7,7 @@ import com.smartHomeManagement.acme.analytics.domain.model.exceptions.Performanc
 import com.smartHomeManagement.acme.analytics.domain.services.PerformanceIndicatorCommandService;
 import com.smartHomeManagement.acme.analytics.infrastructure.persistence.jpa.repositories.PerformanceIndicatorRepository;
 import com.smartHomeManagement.acme.inventory.infrastructure.persistence.jpa.repositories.DeviceRepository;
+import com.smartHomeManagement.acme.inventory.infrastructure.persistence.jpa.repositories.DeviceTypesRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -16,14 +17,20 @@ public class PerformanceIndicatorCommandServiceImpl implements PerformanceIndica
 
     private final PerformanceIndicatorRepository performanceIndicatorRepository;
     private final DeviceRepository deviceRepository;
+    private final DeviceTypesRepository deviceTypesRepository;
 
-    public PerformanceIndicatorCommandServiceImpl(PerformanceIndicatorRepository performanceIndicatorRepository, DeviceRepository deviceRepository) {
+    public PerformanceIndicatorCommandServiceImpl(PerformanceIndicatorRepository performanceIndicatorRepository, DeviceRepository deviceRepository, DeviceTypesRepository deviceTypesRepository) {
         this.performanceIndicatorRepository = performanceIndicatorRepository;
         this.deviceRepository = deviceRepository;
+        this.deviceTypesRepository = deviceTypesRepository;
     }
     @Override
     public Optional<PerformanceIndicator> handle(CreatePerformanceIndicatorCommand command) {
-        var devices =  deviceRepository.findDevicesByDeviceType(command.deviceType());
+        var deviceType = deviceTypesRepository.findByType(command.deviceType());
+        if(deviceType == null){
+            throw new IllegalArgumentException("There are no device types with this type");
+        }
+        var devices =  deviceRepository.findDevicesByDeviceTypeId(deviceType.getId());
         if (devices.isEmpty()){
             throw new IllegalArgumentException("There are no devices with this type");
         }

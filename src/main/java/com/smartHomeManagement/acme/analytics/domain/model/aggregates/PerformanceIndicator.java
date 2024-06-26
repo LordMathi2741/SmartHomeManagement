@@ -46,14 +46,12 @@ public class PerformanceIndicator {
     private DeviceType deviceType;
 
     @OneToMany
-    @JoinColumn(name = "device_id", nullable = false)
-    private ArrayList<Device> devices;
+    private List<Device> devices;
 
     public PerformanceIndicator(){
-        this.devices = new ArrayList<>();
     }
 
-    public PerformanceIndicator(CreatePerformanceIndicatorCommand command, ArrayList<Device> devices){
+    public PerformanceIndicator(CreatePerformanceIndicatorCommand command, List<Device> devices){
         this.name = command.name();
         this.description = command.description();
         this.maxValue = command.maxValue();

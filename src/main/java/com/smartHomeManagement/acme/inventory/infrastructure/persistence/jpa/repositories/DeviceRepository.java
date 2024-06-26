@@ -25,6 +25,6 @@ public interface DeviceRepository extends JpaRepository<Device, Integer> {
     boolean existsByStatus(DeviceStatus status);
     boolean existsBySerialNumber(String serialNumber);
 
-    @Query("SELECT d FROM Device d WHERE d.deviceTypes = :deviceType")
-    ArrayList<Device> findDevicesByDeviceType(DeviceType deviceType);
+    @Query("SELECT d FROM Device d WHERE d.deviceTypes.id = :deviceTypeId")
+    List<Device> findDevicesByDeviceTypeId(Integer deviceTypeId);
 }
